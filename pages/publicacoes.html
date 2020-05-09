@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block logo %}
+<div class="logo float-left">
+  <h1 class="text-light"><a href="/" class="scrollto font-rajdhani"><span>GEOFLUXO</span></a></h1>
+</div>
+{% endblock logo %}
+
+{% block nav %}
+<nav class="main-nav float-right d-none d-lg-block font-rajdhani">
+  <ul id="publication-nav">
+    <!-- JSON publication classes -->
+  </ul>
+</nav>
+{% endblock nav %}
+
+
+{% block intro %}
+<div class="d-flex pb-lg-5">
+  <div class="intro-info">
+    <h1 class="d-none d-lg-block text-light my-5 display-1 font-rajdhani">Publicações</h1>
+    <h1 class="d-lg-none text-light mb-5 display-4 font-rajdhani">Publicações</h1>
+  </div>
+</div>
+{% endblock intro %}
+
+
+{% block main %}
+
+<div id="publications-div" class="container my-5">
+  <!-- JSON publications -->
+</div>
+
+{% endblock main %}
+
+{% block js %}
+
+<script type="text/javascript">
+  var base_url = "https://grupogeofluxo.pythonanywhere.com";
+
+  // PULICATIONS
+  $.ajax({
+
+    url: base_url.concat("/publication-classes"),
+    success: function(publication_classes){
+
+      var publications_div = $("#publications-div");
+      var publication_nav = $("#publication-nav");
+
+      publication_classes.forEach(function(publication_class){
+
+        publication_nav.append(`<li><a href="#${publication_class.name}">${publication_class.short_name}</a></li>`);
+
+        var publication_ul_html = `<h2 class="d-none d-lg-block text-primary font-rajdhani display-4 pt-5" id="${publication_class.name}">${publication_class.plural_name}</h2> <h2 class="d-lg-none text-primary font-rajdhani display-5 pt-5" id="${publication_class.name}">${publication_class.plural_name}</h2> <ul id="publication-class-ul-${publication_class.id}" class="list-group"> </ul>`;
+
+        publications_div.append(publication_ul_html);
+
+        var publication_ul = $(`#publication-class-ul-${publication_class.id}`);
+
+        publication_class.publications.forEach(function(publication){
+
+          var publication_li = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <span class="text-secondary font-rajdhani">${publication.publication_date}</span> <span class="ml-3"><b>${publication.title}</b></span> <a href="${publication.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication.publication_date}</span> <a href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a> </div> <hr class="w-100 my-0"> <span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+
+          publication_ul.append(publication_li);
+
+      });
+    });
+
+    //Smooth nav 
+    $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {
+      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        if (target.length) {
+          var top_space = 0;
+
+          if ($('#header').length) {
+            top_space = $('#header').outerHeight();
+
+            if (!$('#header').hasClass('header-scrolled')) {
+              top_space = top_space - 20;
+            }
+          }
+
+          $('html, body').animate({
+            scrollTop: target.offset().top - top_space
+          }, 1500, 'easeInOutExpo');
+
+          if ($(this).parents('.main-nav, .mobile-nav').length) {
+            $('.main-nav .active, .mobile-nav .active').removeClass('active');
+            $(this).closest('li').addClass('active');
+          }
+
+          if ($('body').hasClass('mobile-nav-active')) {
+            $('body').removeClass('mobile-nav-active');
+            $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+            $('.mobile-nav-overly').fadeOut();
+          }
+          return false;
+        }
+      }
+    });
+
+
+
+  }});
+
+</script>
+
+{% endblock js %}

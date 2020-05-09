@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block logo %}
+<div class="logo float-left">
+  <h1 class="text-light"><a href="/" class="scrollto font-rajdhani"><span>GEOFLUXO</span></a></h1>
+</div>
+{% endblock logo %}
+
+
+{% block nav %}
+<nav class="main-nav float-right d-none d-lg-block font-rajdhani">
+  <ul>
+    <li><a href="#projetos">Projetos</a></li>
+  </ul>
+</nav>
+{% endblock nav %}
+
+
+{% block intro %}
+<div class="d-flex pb-lg-5">
+  <div class="w-100">
+    <h2 class="partner-name d-none d-lg-block text-light mb-5 display-3 font-rajdhani"> </h2>
+    <h3 class="partner-name d-lg-none text-center text-light mb-5 display-4 font-rajdhani"> </h3>
+  </div>
+</div>
+{% endblock intro %}
+å
+{% block main %}
+
+
+<section id="projetos">
+  <div class="container py-5">
+    <div class="mb-0 pb-5">
+
+      <header class="section-header mt-3">
+        <h3>Projetos</h3>
+        <p class="partner-name pb-3 pb-lg-5">Projetos de pesquisa e extensão por </p>
+      </header>
+
+      <div id="projects-div" class="d-flex flex-column">
+        <!-- JSON projects  -->
+      </div>
+
+    </div>
+
+    <div class="d-flex d-lg-none justify-content-center w-100">
+      <img src="{{partner.image.url}}" class="img-fluid mb-3" alt="{{partner.name}}">
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ======= Clients Section ======= -->
+  {% include "includes/parceiros.html" %}
+<!-- End Clients Section -->
+
+
+{% endblock main %}
+{% block js %}
+
+
+<script type="text/javascript">
+  var base_url = "https://grupogeofluxo.pythonanywhere.com";
+  var partner_id = getUrlParameter('id');
+
+  // PARTNER
+  $.ajax({
+
+    url: base_url.concat("/partner/").concat(partner_id),
+    success: function(partner){
+      $('.partner-name').each(function(){
+          $(this).append(partner.name);
+      });
+  }});
+
+  // PROJECTS
+  $.ajax({
+
+    url: base_url.concat("/partner-projects/").concat(partner_id),
+    success: function(projects){
+      var projects_div = $("#projects-div");
+      projects.forEach(function(project){
+
+        var project_element = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project.initial_date} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project.final_date||'Atual'}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project.initial_date} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project.final_date||'Atual'}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
+
+        projects_div.append(project_element);
+      });
+  }});
+
+
+// ALL PARTNERS
+$.ajax({
+
+  url: base_url.concat("/partners"),
+  success: function(partners){
+  var partners_div = $("#partners");
+
+  partners.forEach(function(partner){
+
+    var partner_element = `<div class="col-lg-3 col-md-4 col-xs-6"> <div class="client-logo"> <a href="/parceiros/${partner.id}?id=${partner.id}"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </a></div> </div>`;
+
+    partners_div.append(partner_element);
+  });
+
+}});
+
+
+</script>
+
+{% endblock js %}
