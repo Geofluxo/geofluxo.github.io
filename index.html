@@ -4,6 +4,16 @@
 <html lang="en">
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165999978-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-165999978-1');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -94,10 +104,6 @@
 
 <div class="d-none d-lg-block container mx-5" id="informes">
 
-  <!-- <header class="section-header mt-5 mb-3">
-    <h3>Informes & Novidades</h3>
-  </header> -->
-
   <div id="carousel" class="carousel slide shadow rounded mt-5" data-ride="carousel">
 
     <ol id="banners-ol" class="carousel-indicators">
@@ -142,21 +148,21 @@
 <div class="d-lg-none container">
 
   <div class="d-fle justify-content-center w-100">
-    <div id="carousel" class="carousel slide shadow rounded mt-5" data-ride="carousel">
+    <div id="carousel-mobile" class="carousel slide shadow rounded mt-5" data-ride="carousel">
 
-      <ol class="carousel-indicators">
-        
+      <ol id="banners-ol-mobile" class="carousel-indicators">
+        <!-- JSON here -->
       </ol>
 
-      <div class="carousel-inner rounded">
-        
-
+      <div id="banners-mobile" class="carousel-inner rounded">
+        <!-- JSON banners  -->
       </div>
-      <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+      
+      <a class="carousel-control-prev" href="#carousel-mobile" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
       </a>
-      <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+      <a class="carousel-control-next" href="#carousel-mobile" role="button" data-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
@@ -182,7 +188,10 @@
         <p>André Brasil graduou-se em Engenharia Civil pela UnB (1997), posteriormente, obteve os títulos de mestre (2000) e doutor (2004) em Geotecnia na mesma Universidade. Realizou três estágios de pós-doutoramento no Brasil (2007 a 2010) e pós-doutorado, de agosto de 2014 a julho de 2015, na Universidade do Texas em Austin, nos Estados Unidos.</p>
         <p> Atualmente é professor associado, coordenador da graduação em Engenharia Civil da UnB, presidente do Núcleo Regional Centro Oeste da Associação Brasileira de Mecânica dos Solos e Engenharia Geotécnica (ABMS), membro dos Comitês Técnicos TC217 (Recuperação de Áreas Degradadas e Contaminadas) e TC309 (Machine Learning e Big Data) da Sociedade Internacional de Mecânica dos Solos e Engenharia Geotécnica (ISSMGE), pesquisador de produtividade do CNPq (PQ-2), membro de corpo editorial e revisor de diversos periódicos nacionais/internacionais e coordenador do GeoFluxo.
         </p>
-        <a href="/bio.html">Ler mais</a>
+        <div class="d-flex">
+          <a class="btn btn-outline-primary btn-sm font-rajdhani" href="/bio.html"><b>Ler mais +</b> </a>
+          <a class="btn btn-outline-info btn-sm font-rajdhani ml-3" href="http://lattes.cnpq.br/1515779118499986"><b>Currículo Lattes</b></a>
+        </div>
       </div>
 
       <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
@@ -322,7 +331,7 @@
 
         <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
           <div class="icon"><i class="fa fa-bullseye"></i></div>
-          <h4 class="title"><a href="">Microtomografias de Raios-x</a></h4>
+          <h4 class="title"><a href="">Microtomografia de Raios-x</a></h4>
           <p class="description">Reconstrução tridimensional e análise de solos e demais materiais por microtografia computadorizada</p>
         </div>
 
@@ -718,8 +727,8 @@
             <strong>E-mail:</strong> grupo.geofluxo@gmail.com<br>
           </p>
 
-          <div class="d-flex justify-content-center social-links">
-            
+          <div id="social-network-div" class="d-flex justify-content-center social-links">
+            <!-- JSON social_network -->
           </div>
 
         </div>
@@ -727,7 +736,7 @@
         <div class="col-lg-4  col-4 align-items-center footer-links w-lg-25">
           <h4 class="text-center">Links</h4>
           <ul>
-            <li class="text-center"><a href="#">Home</a></li>
+            <li class="text-center"><a href="/">Home</a></li>
             <li class="text-center"><a href="/publicacoes.html">Publicações</a></li>
             <li class="text-center"><a href="/aulas.html">Notas de Aula</a></li>
             <li class="text-center"><a href="/bio.html">Fundador</a></li>
@@ -882,18 +891,44 @@
 
     url: base_url.concat("/banners"),
     success: function(banners){
-    var banners_div = $("#banners");
-    var banners_ol = $("#banners-ol");
 
+    var banners_div = $("#banners");
+    var banners_div_mobile = $("#banners-mobile");
+    var banners_ol = $("#banners-ol");
+    var banners_ol_mobile = $("#banners-ol-mobile");
 
     banners.forEach(function(banner, index){
 
+      // banners
       var banner_element = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt="${banner.name}"> </div>`;
 
-      var banner_li = `<li data-target="#carousel" data-slide-to="${index}" class="${index==0?'active':''}"></li>`;
+      var banner_element_mobile = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt="${banner.name}"> </div>`;
 
       banners_div.append(banner_element);
+      banners_div_mobile.append(banner_element_mobile);
 
+
+      // banners li
+      var banner_li = `<li data-target="#carousel" data-slide-to="${index}" class="${index==0?'active':''}"></li>`;
+
+      var banner_li_mobile = `<li data-target="#carousel-mobile" data-slide-to="${index}" class="${index==0?'active':''}"></li>`;
+
+      banners_ol.append(banner_li);
+      banners_ol_mobile.append(banner_li_mobile);
+    });
+
+  }});
+
+  // SOCIAL NETWORKS
+  $.ajax({
+
+    url: base_url.concat("/social-networks"),
+    success: function(social_networks){
+
+    var social_network_div = $("#social-network-div");
+
+    social_networks.forEach(function(social_network){
+        social_network_div.append(`<a href="${social_network.url}" class="${social_network.name}"><i class="${social_network.icon}"></i></a>`);
     });
 
   }});

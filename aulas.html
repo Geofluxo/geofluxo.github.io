@@ -4,6 +4,16 @@
 <html lang="en">
 
 <head>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-165999978-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-165999978-1');
+  </script>
+
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -116,8 +126,8 @@
             <strong>E-mail:</strong> grupo.geofluxo@gmail.com<br>
           </p>
 
-          <div class="d-flex justify-content-center social-links">
-            
+          <div id="social-network-div" class="d-flex justify-content-center social-links">
+            <!-- JSON social_network -->
           </div>
 
         </div>
@@ -125,7 +135,7 @@
         <div class="col-lg-4  col-4 align-items-center footer-links w-lg-25">
           <h4 class="text-center">Links</h4>
           <ul>
-            <li class="text-center"><a href="#">Home</a></li>
+            <li class="text-center"><a href="/">Home</a></li>
             <li class="text-center"><a href="/publicacoes.html">Publicações</a></li>
             <li class="text-center"><a href="/aulas.html">Notas de Aula</a></li>
             <li class="text-center"><a href="/bio.html">Fundador</a></li>
@@ -201,7 +211,10 @@
         var course_ul = $(`#course-ul-${course.id}`);
 
         course.lectures.forEach(function(lecture){
-          var course_li_html = `<li class="list-group-item"> <div class="d-none d-lg-flex justify-content-between"> <span class="text-secondary font-rajdhani">${lecture.publication_date}</span> <span class="ml-3"><b>${lecture.title}</b></span> <a href="${lecture.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="w-100 text-secondary font-rajdhani">${lecture.publication_date}</span> <a href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a> </div> <hr class="w-100 my-0"> <span class="font-rajdhani"><b>${lecture.title}</b></span> </div> </li>`;
+
+          var publication_year = lecture.publication_date.split("-")[0];
+
+          var course_li_html = `<li class="list-group-item"> <div class="d-none d-lg-flex justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3 font-rajdhani"><b>${lecture.title}</b></span> <a href="${lecture.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="w-100 text-secondary font-rajdhani">${publication_year}</span> <a href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a> </div> <hr class="w-100 my-0"> <span class="font-rajdhani"><b>${lecture.title}</b></span> </div> </li>`;
 
           course_ul.append(course_li_html);
         });
