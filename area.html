@@ -88,7 +88,7 @@
       
 <div class="d-flex pb-lg-5">
   <div>
-    <h2 class="d-none d-lg-block text-light mb-5 display-3 font-rajdhani area-name">
+    <h2 class="d-none d-lg-block text-light pt-5 m-5 display-3 font-rajdhani area-name">
     </h2>
     <h1 class="d-lg-none text-center text-light mb-5 font-rajdhani area-name">
     </h1>
@@ -104,31 +104,31 @@
     
 
 
-<section id="objetivo">
+<section id="objetivo" style="min-height: 100vh">
 
   <div class="d-flex flex-column">
 
     <header class="order-0 section-header pt-5">
-      <h3 class="section-title">Objetivo & Setores</h3>
+      <h3 class="section-title">Objetivo</h3>
       <p class="pb-3 pb-lg-5 area-name"></p>
     </header>
 
-    <div class="order-2 order-lg-1 container my-lg-0 my-4">
-      <h5 id="description" class="font-rajdhani">
-        <span class="text-secondary">
-          Setores de atividade:
-        </span>
-        Obras de infra-estrutura.
-      </h5>
-    </div>
+    <div class="container mb-5 mt-3">
+      <div class="row align-items-center about-extra mb-5">
+        <div class="col-lg-6 order-2 order-lg-2 container my-lg-0 my-4">
+          <h4 id="description" class="font-rajdhani my-2 mx-lg-2" style="line-height: 1.25em;">
+            <!-- JSON  -->
+          </h4>
+        </div>
 
-    <div class="order-1 order-lg-2 container my-lg-5 pb-lg-4">
-      <div class="col-lg-12 background px-0 order-lg-1 order-1 wow fadeInUp">
-        <div id="area-image" class="member">
-          <!-- JSON image -->
+        <div class="col-lg-6 background px-0 order-lg-1 order-1 wow fadeInUp">
+          <div id="area-image" class="member mx-3">
+            <!-- JSON image -->
+          </div>
         </div>
       </div>
     </div>
+
 
   </div>
 
@@ -151,12 +151,13 @@
   </div>
 </section>
 
-<section id="pesquisas" style="box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);">
+<section id="pesquisas" style="min-height: 100vh" style="box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);">
   <div class="container py-5">
     <header class="section-header">
       <h3 class="section-title">Portifólio</h3>
       <p class="area-name">Portifólio da área de </p>
     </header>
+
     <div id="portfolio" style="box-shadow:none; padding-top:0em; padding-bottom:0em;" class="clearfix">
       <div id="portfolio-items-div" class="row portfolio-container" style="height: auto !important;">
         <!-- JSON portfolio_items -->
@@ -224,6 +225,7 @@
 
           <div id="social-network-div" class="d-flex justify-content-center social-links">
             <!-- JSON social_network -->
+            <a target="_blank" rel="noopener noreferrer" href="https://www.researchgate.net/profile/Andre_Cavalcante" class="research-gate"><span>R</span><sup>G</sup></a>
           </div>
 
         </div>
@@ -368,6 +370,9 @@
 
         projects_div.prepend(project_item);
       });
+
+      var portfolio_items_div = $("#portfolio-items-div");
+      $(portfolio_items_div).css("height","auto");
   }});
 
 
@@ -391,9 +396,30 @@
       });
   }});
 
+
+  $('#objetivo').animate({
+    scrollTop: 0
+  }, 1500, 'easeInOutExpo');
+
 </script>
 
 
+
+  <script type="text/javascript">
+  // SOCIAL NETWORKS
+  $.ajax({
+
+    url: base_url.concat("/social-networks"),
+    success: function(social_networks){
+
+    var social_network_div = $("#social-network-div");
+
+    social_networks.forEach(function(social_network){
+        social_network_div.append(`<a target="_blank" rel="noopener noreferrer" href="${social_network.url}" class="${social_network.name}"><i class="${social_network.icon}"></i></a>`);
+    });
+
+  }});
+  </script>
 
 </body>
 

@@ -124,7 +124,7 @@
 <!-- ======= Clients Section ======= -->
   
 
-<section id="clients" class="section-bg">
+<section  style="min-height: 100vh" id="clients" class="section-bg">
 
   <div class="container">
 
@@ -171,6 +171,7 @@
 
           <div id="social-network-div" class="d-flex justify-content-center social-links">
             <!-- JSON social_network -->
+            <a target="_blank" rel="noopener noreferrer" href="https://www.researchgate.net/profile/Andre_Cavalcante" class="research-gate"><span>R</span><sup>G</sup></a>
           </div>
 
         </div>
@@ -252,6 +253,8 @@
       });
   }});
 
+
+
   // PROJECTS
   $.ajax({
 
@@ -291,6 +294,22 @@ $.ajax({
 </script>
 
 
+
+  <script type="text/javascript">
+  // SOCIAL NETWORKS
+  $.ajax({
+
+    url: base_url.concat("/social-networks"),
+    success: function(social_networks){
+
+    var social_network_div = $("#social-network-div");
+
+    social_networks.forEach(function(social_network){
+        social_network_div.append(`<a target="_blank" rel="noopener noreferrer" href="${social_network.url}" class="${social_network.name}"><i class="${social_network.icon}"></i></a>`);
+    });
+
+  }});
+  </script>
 
 </body>
 

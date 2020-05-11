@@ -734,11 +734,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #services .box {
-  padding: 30px;
-  position: relative;
-  overflow: hidden;
   border-radius: 10px;
-  margin: 0 10px 40px 10px;
   background: #fff;
   box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
   transition: all 0.3s ease-in-out;
@@ -749,8 +745,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #services .icon {
-  position: absolute;
-  left: -10px;
   top: calc(50% - 32px);
 }
 
@@ -1045,6 +1039,10 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 992px) {
   #testimonials .testimonial-item p {
     width: 80%;
+  }
+
+  #intro {
+    height: calc(100vh - 2em);
   }
 }
 

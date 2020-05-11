@@ -83,8 +83,8 @@
 
       
 <div class="d-flex pb-lg-5">
-  <div class="intro-info">
-    <h1 class="d-none d-lg-block text-light mb-5 display-1 font-rajdhani pt-5">Notas de Aula</h1>
+  <div class="intro-info w-100">
+    <h1 class="d-none d-lg-block text-light display-1 font-rajdhani text-center my-5 pt-5" style="font-size: 8rem;">Notas de Aula</h1>
     <h1 class="d-lg-none text-light mb-5 display-4 font-rajdhani">Notas de Aula</h1>
   </div>
 </div>
@@ -128,6 +128,7 @@
 
           <div id="social-network-div" class="d-flex justify-content-center social-links">
             <!-- JSON social_network -->
+            <a target="_blank" rel="noopener noreferrer" href="https://www.researchgate.net/profile/Andre_Cavalcante" class="research-gate"><span>R</span><sup>G</sup></a>
           </div>
 
         </div>
@@ -214,7 +215,7 @@
 
           var publication_year = lecture.publication_date.split("-")[0];
 
-          var course_li_html = `<li class="list-group-item"> <div class="d-none d-lg-flex justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3 font-rajdhani"><b>${lecture.title}</b></span> <a href="${lecture.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="w-100 text-secondary font-rajdhani">${publication_year}</span> <a href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a> </div> <hr class="w-100 my-0"> <span class="font-rajdhani"><b>${lecture.title}</b></span> </div> </li>`;
+          var course_li_html = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${lecture.title}</b></span> </div><a target="_blank" rel="noopener noreferrer" href="${lecture.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <a href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a> </div><span class="font-rajdhani"><b>${lecture.title}</b></span> </div> </li>`;
 
           course_ul.append(course_li_html);
         });
@@ -261,6 +262,22 @@
 </script>
 
 
+
+  <script type="text/javascript">
+  // SOCIAL NETWORKS
+  $.ajax({
+
+    url: base_url.concat("/social-networks"),
+    success: function(social_networks){
+
+    var social_network_div = $("#social-network-div");
+
+    social_networks.forEach(function(social_network){
+        social_network_div.append(`<a target="_blank" rel="noopener noreferrer" href="${social_network.url}" class="${social_network.name}"><i class="${social_network.icon}"></i></a>`);
+    });
+
+  }});
+  </script>
 
 </body>
 
