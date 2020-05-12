@@ -75,7 +75,7 @@
     <li><a href="#why-us">Publicações</a></li>
     <li><a href="#portfolio">Portifólio</a></li>
     <li><a href="#team">Equipe</a></li>
-    <li><a href="#clients">Parcerias</a></li>
+    <li><a href="#clients">Parceiros</a></li>
     <li><a href="#contact">Contato</a></li>
   </ul>
 </nav>
@@ -511,8 +511,8 @@
 <section id="team">
   <div id="users" class="container">
     <div class="section-header">
-      <h3>Time</h3>
-      <p>O grupo Geofluxo é composto por uma soma de talentos.</p>
+      <h3>Equipe</h3>
+      <p>O grupo Geofluxo é composto por uma soma de talentos</p>
     </div>
 
 
@@ -582,7 +582,7 @@
   <div class="container">
 
     <div class="section-header">
-      <h3>Pacerias</h3>
+      <h3>Parceiros</h3>
       <p>O Geofluxo possui diversos parceiros, colboradores e clientes</p>
     </div>
 
@@ -684,16 +684,17 @@
   <div class="modal-dialog modal-lg">
     <div id="advertisement-div" class="modal-content">
       <!-- JSON advertisement -->
-      <div class="modal-header">
-        <h1 class="modal-title text-primary font-rajdhani text-center w-100 m-3" id="ad-title">Modal title</h1>
+      <div class="modal-header" style="z-index: 9999;">
+        <h1 class="ad-title d-none d-lg-block modal-title text-primary font-rajdhani text-center w-100 m-3"></h1>
+        <h3 class=" ad-title d-lg-none modal-title text-primary font-rajdhani text-center w-100 m-0"></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div id="ad-body" class="modal-body">
        <h5 class="font-rajdhani text-center display-5 text-secondary m-3" id="ad-message">corpo do texto</h5>
-       <div class="d-flex justify-content-center fill rounded" style="max-height: 500px;">
-         <img id="ad-image" class="rounded "src="" alt="">
+       <div class="d-flex justify-content-center rounded" style="max-height: 500px;">
+         <img id="ad-image" style="max-height: 500px; width: auto; object-fit: cover;" class="rounded "src="" alt="">
        </div>
      </div>
     </div>
@@ -800,17 +801,17 @@
     success: function(advertisement){
 
       if(advertisement.title){
-        $("#ad-title").html(advertisement.title);
+        
+        $(".ad-title").each(function(){
+          $(this).html(advertisement.title);
+        });
+
         $("#ad-message").html(advertisement.message);
         $("#ad-image").attr("src", advertisement.image);
 
         // show message popup - toast
         $('#advertisement').modal('show');
-        setTimeout(
-        function()
-        {
-          $('#advertisement').modal('hide');
-        }, 5000);
+
       }
     }
   });
@@ -902,9 +903,9 @@
     banners.forEach(function(banner, index){
 
       // banners
-      var banner_element = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt="${banner.name}"> </div>`;
+      var banner_element = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt=""> </div>`;
 
-      var banner_element_mobile = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt="${banner.name}"> </div>`;
+      var banner_element_mobile = `<div class="carousel-item ${index==0?'active':''}"> <img src="${banner.image}" class="d-block w-100" alt=""> </div>`;
 
       banners_div.append(banner_element);
       banners_div_mobile.append(banner_element_mobile);

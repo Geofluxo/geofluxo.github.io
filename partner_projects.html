@@ -68,6 +68,7 @@
 <nav class="main-nav float-right d-none d-lg-block font-rajdhani">
   <ul>
     <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#clients">Parceiros</a></li>
   </ul>
 </nav>
 
@@ -84,8 +85,9 @@
       
 <div class="d-flex pb-lg-5">
   <div class="w-100">
-    <h2 class="partner-name d-none d-lg-block text-light mb-5 display-3 font-rajdhani"> </h2>
-    <h3 class="partner-name d-lg-none text-center text-light mb-5 display-4 font-rajdhani"> </h3>
+    <h2 class="partner-name d-none d-lg-block text-center text-light my-5 display-4 font-rajdhani"> </h2>
+    <div class="d-none d-lg-flex justify-content-center partner-img"> </div>
+    <h3 class="partner-name d-lg-none text-center text-light mb-5 font-rajdhani"> </h3>
   </div>
 </div>
 
@@ -97,24 +99,27 @@
 
     
 
+<div class="container">
+  <div class="d-flex d-lg-none justify-content-center w-100 partner-img mt-5">
+    <!-- JSON image     -->
+  </div>
+</div>
 
-<section id="projetos">
-  <div class="container py-5">
+<section id="projetos" style="min-height:100vh;">
+
+  <div class="container py-4">
     <div class="mb-0 pb-5">
 
-      <header class="section-header mt-3">
+      <header class="section-header my-3">
         <h3>Projetos</h3>
         <p class="partner-name pb-3 pb-lg-5">Projetos de pesquisa e extensão por </p>
       </header>
+
 
       <div id="projects-div" class="d-flex flex-column">
         <!-- JSON projects  -->
       </div>
 
-    </div>
-
-    <div id="partner-img" class="d-flex d-lg-none justify-content-center w-100">
-      <!-- JSON image     -->
     </div>
 
   </div>
@@ -129,7 +134,7 @@
   <div class="container">
 
     <div class="section-header">
-      <h3>Pacerias</h3>
+      <h3>Parceiros</h3>
       <p>O Geofluxo possui diversos parceiros, colboradores e clientes</p>
     </div>
 
@@ -244,9 +249,9 @@
     url: base_url.concat("/partner/").concat(partner_id),
     success: function(partner){
 
-      var partner_img = $("#partner-img");
-
-      partner_img.append(`<img src="${partner.image}" class="img-fluid mb-3" alt=""> `);
+      $(".partner-img").each(function(){
+        $(this).append(`<img src="${partner.image}" style="max-height: 15em;" class="img-fluid mb-3" alt="${partner.name}"> `);
+      });
 
       $('.partner-name').each(function(){
           $(this).append(partner.name);
