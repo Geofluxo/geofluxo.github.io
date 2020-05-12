@@ -240,7 +240,7 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   position: relative;
   color: #004289;
-  padding: 10px 15px;
+  padding: 10px 10px;
   transition: 0.3s;
   font-size: 1.25em;
   font-weight: 500;
@@ -1348,14 +1348,14 @@ h1, h2, h3, h4, h5, h6 {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #00428a;
+  background: #05366a;
   padding: 0 0 30px 0;
   color: #eee;
   font-size: 14px;
 }
 
 #footer .footer-top {
-  background: #004a99;
+  background: #00428a;
   padding: 60px 0 30px 0;
 }
 

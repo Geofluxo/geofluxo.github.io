@@ -97,9 +97,62 @@
 
     
 
-<div id="publications-div" class="container my-5">
+<div id="publications-div" class="container my-5 pb-5">
   <!-- JSON publications -->
 </div>
+
+<!-- ======= Publications Section ======= -->
+  
+
+<section  style="min-height: 100vh" id="why-us" class="wow fadeIn">
+  <div class="container">
+    <header class="section-header">
+      <h3>Publicações & Notas de Aulas</h3>
+      <p class="pb-lg-5 pb-3">Leia e faça o download das publicações e aulas </p>
+    </header>
+
+    <div class="row row-eq-height justify-content-center align-items-center">
+
+      <div class="d-none d-lg-block col-lg-3 background order-lg-1 order-1 wow fadeInUp px-5 pb-5">
+        <img src="/static/assets/img/paper.svg" class="img-fluid" alt="">
+      </div>
+
+      <div class="col-lg-5 order-lg-2 order-2 mb-4">
+
+        <div class="card wow bounceInUp">
+          <a href="/publicacoes.html">
+            <div class="card-body">
+              <h5 class="card-title mt-3 mb-4">Publicações</h5>
+              <p class="card-text mb-3 mx-3">Artigos, Dissertações, Teses, Iniciações Científicas, Trabalhos de Conclusão de Curso e  Publicações em Congressos.</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4 order-lg-2 order-2 mb-4">
+
+        <div class="card wow bounceInUp">
+          <a href="/aulas.html">
+            <div class="card-body">
+              <h5 class="card-title mt-3 mb-4">Notas de Aula</h5>
+              <p class="card-text mb-3 mx-3">Notas de aula e slides das disciplinas e cursos do professor Dr. André Brasil </p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="publication-indexes" class="d-none d-lg-flex justify-content-between counters">
+      <!-- JSON for publication-indexes -->
+     </div>
+
+  </div>
+</section>
+
+<!-- End Publications Section -->
 
 
 
@@ -227,6 +280,8 @@
 
       });
     });
+    // Publicações & Aulas section
+    publication_nav.append('<li><a href="#why-us">Aulas</a></li>');
 
     //Smooth nav
     $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {
@@ -261,10 +316,31 @@
         }
       }
     });
-
-
-
   }});
+
+
+
+    // PUBLICATION INDEXES
+    $.ajax({
+
+      url: base_url.concat("/publication-indexes"),
+      success: function(publication_indexes){
+      var publication_indexes_div = $("#publication-indexes");
+
+      publication_indexes.forEach(function(publication_index){
+
+        var publication_index_element = `<div class="text-center"> <span data-toggle="counter-up">${publication_index.value}</span> <p>${publication_index.name}</p> </div>`;
+
+        publication_indexes_div.append(publication_index_element);
+      });
+
+      // jQuery counterUp (used in Whu Us section)
+      $('[data-toggle="counter-up"]').counterUp({
+        delay: 10,
+        time: 1000
+      });
+
+    }});
 
 </script>
 
