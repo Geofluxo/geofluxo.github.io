@@ -68,7 +68,6 @@
 <nav class="main-nav float-right d-none d-lg-block font-rajdhani">
   <ul id="courses-nav">
     <!-- JSON courses -->
-    <li><a href="#why-us">Publicações</a></li>
   </ul>
 </nav>
 
@@ -257,7 +256,7 @@
       var courses_nav = $("#courses-nav");
 
       courses.forEach(function(course){
-        courses_nav.prepend(`<li><a href="#course_${course.id}">${course.short_name}</a></li>`);
+        courses_nav.append(`<li><a href="#course_${course.id}">${course.short_name}</a></li>`);
 
         var course_ul_html = `<h2 class="d-none d-lg-block text-primary font-rajdhani display-4 mt-5" id="course_${course.id}">${course.name}</h2> <h3 class="d-lg-none text-primary font-rajdhani pt-5" id="${course.name}">${course.name}</h3> <ul id="course-ul-${course.id}"class="list-group"></ul>`;
 
@@ -275,6 +274,8 @@
         });
 
       });
+
+      courses_nav.append('<li><a href="#why-us">Publicações</a></li>');
 
       //Smooth nav
       $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {

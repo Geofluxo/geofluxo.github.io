@@ -89,7 +89,7 @@
     
 <div class="d-flex pb-5 pb-lg-0 mb-lg-5 align-items-center justify-content-between">
 
-  <div class="d-none d-lg-block intro-info mx-5">
+  <div class="d-none d-lg-block intro-info mx-5 pb-5 mb-5">
     <h1 class="text-light display-1 mb-0 font-rajdhani">GEOFLUXO</h1>
     <h3 class="text-light font-rajdhani pb-5"> Grupo de Pesquisa Inovações e Tecnologias Aplicadas em Geotecnia Ambiental</h3>
   </div>
@@ -583,11 +583,16 @@
 
     <div class="section-header">
       <h3>Parceiros</h3>
-      <p>O Geofluxo possui diversos parceiros, colboradores e clientes</p>
+      <p>O Geofluxo possui diversos parceiros, colaboradores e clientes</p>
     </div>
+
 
     <div id="partners" class="row no-gutters clients-wrap clearfix wow fadeInUp">
         <!-- JSON partners -->
+    </div>
+
+    <div class="d-flex justify-content-center mt-5 wow bounceInUp">
+      <a class="btn btn-outline-primary font-rajdhani"  href="/projects.html"> <b>Ver todos os projetos dos parceiros</b></a>
     </div>
 
   </div>
@@ -801,7 +806,7 @@
     success: function(advertisement){
 
       if(advertisement.title){
-        
+
         $(".ad-title").each(function(){
           $(this).html(advertisement.title);
         });

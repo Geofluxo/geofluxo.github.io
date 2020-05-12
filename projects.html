@@ -66,9 +66,7 @@
 
       
 <nav class="main-nav float-right d-none d-lg-block font-rajdhani">
-  <ul>
-    <li><a href="#projetos">Projetos</a></li>
-    <li><a href="#clients">Parceiros</a></li>
+  <ul id="nav-ul">
   </ul>
 </nav>
 
@@ -85,9 +83,8 @@
       
 <div class="d-flex pb-lg-5">
   <div class="w-100">
-    <h2 class="partner-name d-none d-lg-block text-center text-light mt-5 mb-4 display-4 font-rajdhani"> </h2>
-    <div class="d-none d-lg-flex justify-content-center partner-img"> </div>
-    <h3 class="partner-name d-lg-none text-center text-light mb-5 font-rajdhani"> </h3>
+    <h1 class="partner-name d-none d-lg-block text-center text-light pt-5 my-5 display-1 font-rajdhani" style="font-size:10em;">Projetos</h1>
+    <h3 class="partner-name d-lg-none text-center text-light mb-5 font-rajdhani">Projetos</h3>
   </div>
 </div>
 
@@ -110,9 +107,9 @@
   <div class="container py-4">
     <div class="mb-0 pb-5">
 
-      <header class="section-header my-3">
+      <header class="section-header my-3 pt-5">
         <h3>Projetos</h3>
-        <p class="partner-name pb-3 pb-lg-5">Projetos de pesquisa e extensão por </p>
+        <p class="pb-0">Projetos de pesquisa e extensão por todos os parceiros</p>
       </header>
 
 
@@ -248,39 +245,72 @@
   var base_url = "https://grupogeofluxo.pythonanywhere.com";
   var partner_id = getUrlParameter('id');
 
-  // PARTNER
-  $.ajax({
-
-    url: base_url.concat("/partner/").concat(partner_id),
-    success: function(partner){
-
-      $(".partner-img").each(function(){
-        $(this).append(`<img src="${partner.image}" style="max-height: 10em;" class="img-fluid mb-3" alt="${partner.name}"> `);
-      });
-
-      $('.partner-name').each(function(){
-          $(this).append(partner.name);
-      });
-  }});
-
-
 
   // PROJECTS
   $.ajax({
 
-    url: base_url.concat("/partner-projects/").concat(partner_id),
+    url: base_url.concat("/projects"),
     success: function(projects){
       var projects_div = $("#projects-div");
+      var nav_ul = $("#nav-ul");
+
       projects.forEach(function(project){
 
         var project_initial_year = project.initial_date.split("-")[0];
         var project_final_year = project.final_date ? project.final_date.split("-")[0] : 'Atual';
 
+        if($(`#partner-${project.partner.id}-div`).length==0){
 
-        var project_element = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
+          nav_ul.append(`<li><a href="#partner-${project.partner.id}">${project.partner.short_name.split(" ")[0]}</a></li>`);
 
-        projects_div.append(project_element);
+          var partner_header = `<section id="partner-${project.partner.id}"><img src="${project.partner.image}" class="img-fluid w-25 mt-5 pt-5" alt="${project.partner.name}"><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
+
+          projects_div.append(partner_header);
+        }
+
+        var partner_div = $(`#partner-${project.partner.id}-div`);
+
+        var project_element = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
+
+        partner_div.append(project_element);
       });
+
+      nav_ul.append('<li><a href="#clients">Parceiros</a></li>');
+
+      //Smooth nav
+      $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+          var target = $(this.hash);
+          if (target.length) {
+            var top_space = 0;
+
+            if ($('#header').length) {
+              top_space = $('#header').outerHeight();
+
+              if (!$('#header').hasClass('header-scrolled')) {
+                top_space = top_space - 20;
+              }
+            }
+
+            $('html, body').animate({
+              scrollTop: target.offset().top - top_space
+            }, 1500, 'easeInOutExpo');
+
+            if ($(this).parents('.main-nav, .mobile-nav').length) {
+              $('.main-nav .active, .mobile-nav .active').removeClass('active');
+              $(this).closest('li').addClass('active');
+            }
+
+            if ($('body').hasClass('mobile-nav-active')) {
+              $('body').removeClass('mobile-nav-active');
+              $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
+              $('.mobile-nav-overly').fadeOut();
+            }
+            return false;
+          }
+        }
+      });
+
   }});
 
 
@@ -290,8 +320,9 @@ $.ajax({
   url: base_url.concat("/partners"),
   success: function(partners){
   var partners_div = $("#partners");
+  var projects_div = $("#projects-div");
 
-  partners.forEach(function(partner){
+  partners.forEach(function(partner,index){
 
     var partner_element = `<div class="col-lg-3 col-md-4 col-xs-6"> <div class="client-logo"> <a href="/partner_projects.html?id=${partner.id}"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </a></div> </div>`;
 
