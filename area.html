@@ -380,7 +380,9 @@
     url: base_url.concat("/area-projects/").concat(area_id),
     success: function(area_projects){
 
-      area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
+      area_projects.sort((b, a) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
+
+      area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       var projects_div = $("#projects-div")
       area_projects.forEach(function(project){

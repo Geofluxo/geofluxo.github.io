@@ -254,7 +254,9 @@
       var projects_div = $("#projects-div");
       var nav_ul = $("#nav-ul");
 
-      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
+      projects.sort((a, b) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
+
+      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       projects.forEach(function(project){
 
