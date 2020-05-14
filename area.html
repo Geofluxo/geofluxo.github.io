@@ -347,7 +347,7 @@
         var publication_year = publication.publication_date.split("-")[0];
 
 
-        var publication_element = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year} </span> <span class="ml-3"> <b class="font-rajdhani text-dark">${publication.title}</b></span> </div> <a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download"></i></a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <a href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a> </div> <hr class="w-100 my-0"> <span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+        var publication_element = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year} </span> <span class="ml-3"> <b class="font-rajdhani text-dark">${publication.title}</b></span> </div> <a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download"></i></a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <a href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a> </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
 
         publications_ul.append(publication_element);
 
@@ -380,15 +380,15 @@
     url: base_url.concat("/area-projects/").concat(area_id),
     success: function(area_projects){
 
-      area_projects.sort((a, b) => a.initial_date.split("-")[0] - b.initial_date.split("-")[0]);
+      area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
 
       var projects_div = $("#projects-div")
       area_projects.forEach(function(project){
 
         var project_initial_year = project.initial_date.split("-")[0];
-        var project_final_year = project.final_date ? project.final_date.split("-")[0] : 'Atual';
+        var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
-        var project_item = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid p-2" style="max-height: 10em;"alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <img src="${project.partner.image}" style="height:3em;" class="img-fluid" alt="${project.partner.name}"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-2 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
+        var project_item = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid p-2" style="max-height: 10em;"alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex w-100 justify-content-between align-items-center font-rajdhani"> <img src="${project.partner.image}" style="height:3em;" class="img-fluid" alt="${project.partner.name}"> <div class="d-flex"><h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div></div> <hr class="my-2 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
 
 
         projects_div.prepend(project_item);
@@ -445,7 +445,8 @@
 
   }});
 
-
+  setupNav();
+  setupMain();
 
 </script>
 

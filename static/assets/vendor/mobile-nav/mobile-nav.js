@@ -1,3 +1,5 @@
+function setupNav(){
+
 (function ($) {
   "use strict";
 
@@ -15,7 +17,7 @@
       $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
       $('.mobile-nav-overly').toggle();
     });
-    
+
     $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
       e.preventDefault();
       $(this).next().slideToggle(300);
@@ -37,3 +39,5 @@
   }
 
 })(jQuery);
+
+}

@@ -72,6 +72,8 @@
 </nav>
 
 
+
+
     </div>
   </header><!-- #header -->
 
@@ -259,7 +261,7 @@
 
         publication_nav.append(`<li><a href="#${publication_class.name}">${publication_class.short_name}</a></li>`);
 
-        var publication_ul_html = `<h2 class="d-none d-lg-block text-primary font-rajdhani display-4 pt-5" id="${publication_class.name}">${publication_class.plural_name}</h2> <h2 class="d-lg-none text-primary font-rajdhani display-5 pt-5" id="${publication_class.name}">${publication_class.plural_name}</h2> <ul id="publication-class-ul-${publication_class.id}" class="list-group"> </ul>`;
+        var publication_ul_html = `<section id="${publication_class.name}"><h2 class="d-none d-lg-block text-primary font-rajdhani display-4 pt-5"">${publication_class.plural_name}</h2> <h2 class="d-lg-none text-primary font-rajdhani display-5 pt-5" id="${publication_class.name}">${publication_class.plural_name}</h2> <ul id="publication-class-ul-${publication_class.id}" class="list-group"> </ul></section>`;
 
         publications_div.append(publication_ul_html);
 
@@ -283,39 +285,10 @@
     // Publicações & Aulas section
     publication_nav.append('<li><a href="#why-us">Aulas</a></li>');
 
-    //Smooth nav
-    $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {
-      if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-        var target = $(this.hash);
-        if (target.length) {
-          var top_space = 0;
+    setupNav();
+    setupMain();
 
-          if ($('#header').length) {
-            top_space = $('#header').outerHeight();
 
-            if (!$('#header').hasClass('header-scrolled')) {
-              top_space = top_space - 20;
-            }
-          }
-
-          $('html, body').animate({
-            scrollTop: target.offset().top - top_space
-          }, 1500, 'easeInOutExpo');
-
-          if ($(this).parents('.main-nav, .mobile-nav').length) {
-            $('.main-nav .active, .mobile-nav .active').removeClass('active');
-            $(this).closest('li').addClass('active');
-          }
-
-          if ($('body').hasClass('mobile-nav-active')) {
-            $('body').removeClass('mobile-nav-active');
-            $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
-            $('.mobile-nav-overly').fadeOut();
-          }
-          return false;
-        }
-      }
-    });
   }});
 
 

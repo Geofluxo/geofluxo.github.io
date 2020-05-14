@@ -271,10 +271,14 @@
     url: base_url.concat("/partner-projects/").concat(partner_id),
     success: function(projects){
       var projects_div = $("#projects-div");
+
+      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
+
+
       projects.forEach(function(project){
 
         var project_initial_year = project.initial_date.split("-")[0];
-        var project_final_year = project.final_date ? project.final_date.split("-")[0] : 'Atual';
+        var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
 
         var project_element = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
@@ -300,6 +304,8 @@ $.ajax({
 
 }});
 
+setupNav();
+setupMain();
 
 </script>
 

@@ -254,16 +254,19 @@
       var projects_div = $("#projects-div");
       var nav_ul = $("#nav-ul");
 
+      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
+
       projects.forEach(function(project){
 
         var project_initial_year = project.initial_date.split("-")[0];
-        var project_final_year = project.final_date ? project.final_date.split("-")[0] : 'Atual';
+        var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
         if($(`#partner-${project.partner.id}-div`).length==0){
 
           nav_ul.append(`<li><a href="#partner-${project.partner.id}">${project.partner.short_name.split(" ")[0]}</a></li>`);
 
-          var partner_header = `<section id="partner-${project.partner.id}"><img src="${project.partner.image}" class="img-fluid w-25 mt-5 pt-5" alt="${project.partner.name}"><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
+
+          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
 
           projects_div.append(partner_header);
         }
@@ -277,39 +280,8 @@
 
       nav_ul.append('<li><a href="#clients">Parceiros</a></li>');
 
-      //Smooth nav
-      $('.main-nav a, .mobile-nav a, .scrollto').on('click', function() {
-        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-          var target = $(this.hash);
-          if (target.length) {
-            var top_space = 0;
-
-            if ($('#header').length) {
-              top_space = $('#header').outerHeight();
-
-              if (!$('#header').hasClass('header-scrolled')) {
-                top_space = top_space - 20;
-              }
-            }
-
-            $('html, body').animate({
-              scrollTop: target.offset().top - top_space
-            }, 1500, 'easeInOutExpo');
-
-            if ($(this).parents('.main-nav, .mobile-nav').length) {
-              $('.main-nav .active, .mobile-nav .active').removeClass('active');
-              $(this).closest('li').addClass('active');
-            }
-
-            if ($('body').hasClass('mobile-nav-active')) {
-              $('body').removeClass('mobile-nav-active');
-              $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
-              $('.mobile-nav-overly').fadeOut();
-            }
-            return false;
-          }
-        }
-      });
+      setupNav();
+      setupMain();
 
   }});
 
