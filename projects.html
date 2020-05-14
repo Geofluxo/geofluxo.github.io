@@ -84,7 +84,7 @@
 <div class="d-flex pb-lg-5">
   <div class="w-100">
     <h1 class="partner-name d-none d-lg-block text-center text-light pt-5 my-5 display-1 font-rajdhani" style="font-size:10em;">Projetos</h1>
-    <h3 class="partner-name d-lg-none text-center text-light mb-5 font-rajdhani">Projetos</h3>
+    <h1 class="partner-name d-lg-none text-center display-3 text-light mb-5 font-rajdhani">Projetos</h1>
   </div>
 </div>
 
@@ -107,7 +107,7 @@
   <div class="container py-4">
     <div class="mb-0 pb-5">
 
-      <header class="section-header my-3 pt-5">
+      <header class="section-header my-3 pt-lg-5">
         <h3>Projetos</h3>
         <p class="pb-0">Projetos de pesquisa e extensão por todos os parceiros</p>
       </header>
@@ -268,7 +268,7 @@
           nav_ul.append(`<li><a href="#partner-${project.partner.id}">${project.partner.short_name.split(" ")[0]}</a></li>`);
 
 
-          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
+          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <a href="/partner_projects.html?id=${project.partner.id}"><img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"></a> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
 
           projects_div.append(partner_header);
         }
