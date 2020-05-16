@@ -185,12 +185,13 @@
         <h4><b>Professor Dr. André Brasil</b></h4>
         <p> O Professor Dr. André Luís Brasil Cavalcante é o fundador e coordenador do Grupo de Pesquisa Inovações e Tecnologias Aplicadas em Geotecnia Ambiental - <a target="_blank" rel="noopener noreferrer" href="http://dgp.cnpq.br/dgp/espelhogrupo/348470">GeoFluxo</a> desde 2010, sendo filiado ao Diretório dos Grupos de Pesquisa do CNPq desde 2018. </p>
         <p>André Brasil graduou-se em Engenharia Civil pela UnB (1997), posteriormente, obteve os títulos de mestre (2000) e doutor (2004) em Geotecnia na mesma Universidade. Realizou três estágios de pós-doutoramento no Brasil (2007 a 2010) e pós-doutorado, de agosto de 2014 a julho de 2015, na Universidade do Texas em Austin, nos Estados Unidos.</p>
-        <p> Atualmente é professor associado, coordenador da graduação em Engenharia Civil da UnB, presidente do Núcleo Regional Centro Oeste da Associação Brasileira de Mecânica dos Solos e Engenharia Geotécnica (<a href="https://www.abms.com.br/nucleos/centro-oeste/
-">ABMS</a>), membro dos Comitês Técnicos <a target="_blank" rel="noopener noreferrer" href="https://www.issmge.org/committees/technical-committees/applications/land-reclamation">TC217</a> (Recuperação de Áreas Degradadas e Contaminadas) e <a target="_blank" rel="noopener noreferrer" href="https://www.issmge.org/committees/technical-committees/impact-on-society/machine-learning">TC309</a> (Machine Learning e Big Data) da Sociedade Internacional de Mecânica dos Solos e Engenharia Geotécnica (ISSMGE), pesquisador de produtividade do CNPq (PQ-2), membro de corpo editorial e revisor de diversos periódicos nacionais/internacionais e coordenador do GeoFluxo.
+        <p> Atualmente é professor associado, coordenador da graduação em Engenharia Civil da UnB, presidente do Núcleo Regional Centro Oeste da Associação Brasileira de Mecânica dos Solos e Engenharia Geotécnica (<a target="_blank" rel="noopener noreferrer" href="https://www.abms.com.br/nucleos/centro-oeste/ ">ABMS</a>), membro dos Comitês Técnicos <a target="_blank" rel="noopener noreferrer" href="https://www.issmge.org/committees/technical-committees/applications/land-reclamation">TC217</a> (Recuperação de Áreas Degradadas e Contaminadas) e <a target="_blank" rel="noopener noreferrer" href="https://www.issmge.org/committees/technical-committees/impact-on-society/machine-learning">TC309</a> (Machine Learning e Big Data) da Sociedade Internacional de Mecânica dos Solos e Engenharia Geotécnica (ISSMGE), pesquisador de produtividade do CNPq (PQ-2), membro de corpo editorial e revisor de diversos periódicos nacionais/internacionais e coordenador do GeoFluxo.
         </p>
-        <div class="d-flex">
-          <a class="btn btn-outline-primary btn-sm font-rajdhani" href="/bio.html"><b>Ler mais +</b> </a>
-          <a target="_blank" rel="noopener noreferrer" class="btn btn-outline-info btn-sm font-rajdhani ml-3" href="http://lattes.cnpq.br/1515779118499986"><b>Currículo Lattes</b></a>
+        <div class="d-flex justify-content-center justify-content-lg-start">
+          <a class="btn btn-outline-primary btn-sm font-rajdhani" href="/bio.html"><b class="d-none d-lg-block">Ler mais +</b> <b class="d-lg-none"> Ler +</b> </a>
+          <a target="_blank" rel="noopener noreferrer" class="btn btn-outline-info btn-sm font-rajdhani ml-3" href="http://lattes.cnpq.br/1515779118499986"><b class="d-none d-lg-block">Currículo Lattes</b><b class="d-lg-none">Lattes</b></a>
+          <a target="_blank" rel="noopener noreferrer" class="btn btn-outline-info btn-sm font-rajdhani ml-3" href="http://unb.br"><div class="d-flex align-items-center"> <b>UnB</b><img src="/static/assets/img/unb.jpg" style="height: 1em;" class="d-none d-lg-block img-fluid ml-3" alt=""> </div> </a>
+          <a target="_blank" rel="noopener noreferrer" class="btn btn-outline-info btn-sm font-rajdhani ml-3" href="https://www.geotecnia.unb.br/"><div class="d-flex align-items-center"> <b>Geotecnia</b><img src="/static/assets/img/geotecnia-unb.jpg" style="height: 1.25em;" class="d-none d-lg-block img-fluid ml-3" alt=""> </div> </a>
         </div>
       </div>
 
@@ -199,6 +200,7 @@
           <img src="/static/assets/img/andre-brasil.jpeg" class="img-fluid rounded-circle" alt="">
         </div>
       </div>
+
     </div>
 
   </div>
@@ -821,80 +823,6 @@
     }
   });
 
-  // AREAS
-  $.ajax({
-
-    url: base_url.concat("/areas"),
-    headers: { 'Content-Type': 'application/json'},
-    type: "GET",
-    dataType: "json",
-    success: function(areas){
-    var areas_div = $("#areas");
-    var portfolio_filters_ul = $("#portfolio-flters");
-
-    areas.forEach(function(area){
-
-      var area_element = `<div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s"> <div class="box d-flex align-items-center px-2 py-4 my-4"> <div class="icon"><i class="${area.icon}" style="color:#007bff;"></i></div> <h4 class="title my-0"><a href="/area.html?id=${area.id}">${area.name}</a></h4> </div> </div>`;
-
-      areas_div.append(area_element);
-
-      var portfolio_filters_li = `<li data-filter=".filter-area-${area.id}">${area.short_name}</li>`;
-      portfolio_filters_ul.append(portfolio_filters_li);
-
-    });
-
-    portfolio_filters_ul.append('<li data-filter=".filter-area-outros">outros</li>');
-
-  }});
-
-
-  // PUBLICATION INDEXES
-  $.ajax({
-
-    url: base_url.concat("/publication-indexes"),
-    success: function(publication_indexes){
-    var publication_indexes_div = $("#publication-indexes");
-
-    publication_indexes.forEach(function(publication_index){
-
-      var publication_index_element = `<div class="text-center"> <span data-toggle="counter-up">${publication_index.value}</span> <p>${publication_index.name}</p> </div>`;
-
-      publication_indexes_div.append(publication_index_element);
-    });
-
-    // jQuery counterUp (used in Whu Us section)
-    $('[data-toggle="counter-up"]').counterUp({
-      delay: 10,
-      time: 1000
-    });
-
-  }});
-
-  // PORTFOLIO-ITEMS
-  $.ajax({
-
-    url: base_url.concat("/portfolio-items"),
-    success: function(portfolio_items){
-    var portfolio_items_div = $("#portfolio-items");
-
-    portfolio_items.forEach(function(portfolio_item){
-
-      var portfolio_item_element = `<div class="col-lg-4 col-md-6 portfolio-item filter-area-${(portfolio_item.area||'outros')}"> <div class="portfolio-wrap"> <img src="${portfolio_item.image}" class="img-fluid" alt=""> <div class="portfolio-info"> <h4><a href="${portfolio_item.url}">${portfolio_item.title}</a></h4> <p>${portfolio_item.subtitle}</p><a href="${portfolio_item.url}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a> </div> </div> </div> </div>`;
-
-      portfolio_items_div.append(portfolio_item_element);
-    });
-
-    $(portfolio_items_div).css("height","auto");
-
-    $(document).ready(function() {
-      $('.venobox').venobox();
-    });
-
-
-
-  }});
-
-
   // BANNERS
   $.ajax({
 
@@ -928,11 +856,59 @@
 
   }});
 
+  // AREAS
+  $.ajax({
+
+    url: base_url.concat("/areas"),
+    headers: { 'Content-Type': 'application/json'},
+    type: "GET",
+    dataType: "json",
+    success: function(areas){
+    var areas_div = $("#areas");
+    var portfolio_filters_ul = $("#portfolio-flters");
+
+    areas.forEach(function(area){
+
+      var area_element = `<div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s"> <div class="box d-flex align-items-center px-2 py-4 my-4"> <div class="icon"><i class="${area.icon}" style="color:#007bff;"></i></div> <h4 class="title my-0"><a href="/area.html?id=${area.id}">${area.name}</a></h4> </div> </div>`;
+
+      areas_div.append(area_element);
+
+      var portfolio_filters_li = `<li data-filter=".filter-area-${area.id}">${area.short_name}</li>`;
+      portfolio_filters_ul.append(portfolio_filters_li);
+
+    });
+
+    portfolio_filters_ul.append('<li data-filter=".filter-area-outros">outros</li>');
+
+  }})
 
 
-  // titles json
+  // PUBLICATION INDEXES
+  $.ajax({
 
-  var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestra', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
+    url: base_url.concat("/publication-indexes"),
+    success: function(publication_indexes){
+    var publication_indexes_div = $("#publication-indexes");
+
+    publication_indexes.forEach(function(publication_index){
+
+      var publication_index_element = `<div class="text-center"> <span data-toggle="counter-up">${publication_index.value}</span> <p>${publication_index.name}</p> </div>`;
+
+      publication_indexes_div.append(publication_index_element);
+    });
+
+    // jQuery counterUp (used in Whu Us section)
+    $('[data-toggle="counter-up"]').counterUp({
+      delay: 10,
+      time: 1000
+    });
+
+  }});
+
+
+    // titles json
+
+    var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestra', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
 
   // USERS
   $.ajax({
@@ -997,7 +973,35 @@
 
     $("#portfolio-items").css("height","auto");
 
-  }});
+  }}).then(function(){
+    // PORTFOLIO-ITEMS
+
+    return $.ajax({
+
+      url: base_url.concat("/portfolio-items"),
+      success: function(portfolio_items){
+      var portfolio_items_div = $("#portfolio-items");
+
+      portfolio_items.forEach(function(portfolio_item){
+
+        var portfolio_item_element = `<div class="col-lg-4 col-md-6 portfolio-item filter-area-${(portfolio_item.area||'outros')}"> <div class="portfolio-wrap"> <img src="${portfolio_item.image}" class="img-fluid" alt=""> <div class="portfolio-info"> <h4><a href="${portfolio_item.url}">${portfolio_item.title}</a></h4> <p>${portfolio_item.subtitle}</p><a href="${portfolio_item.url}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a> </div> </div> </div> </div>`;
+
+        portfolio_items_div.append(portfolio_item_element);
+      });
+
+      $(portfolio_items_div).css("height","auto");
+
+      $(document).ready(function() {
+        $('.venobox').venobox();
+      });
+
+
+
+    }});
+  },
+  function(){
+    console.log('error on load');
+  });
 
 
   // PARTNERS

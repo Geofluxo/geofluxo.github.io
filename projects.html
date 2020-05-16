@@ -239,7 +239,6 @@
 
   
 
-
 <script type="text/javascript">
   var base_url = "https://grupogeofluxo.pythonanywhere.com";
   var partner_id = getUrlParameter('id');
@@ -253,7 +252,9 @@
       var projects_div = $("#projects-div");
       var nav_ul = $("#nav-ul");
 
-      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
+      projects.sort((a, b) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
+
+      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       projects.forEach(function(project){
 
@@ -265,7 +266,7 @@
           nav_ul.append(`<li><a href="#partner-${project.partner.id}">${project.partner.short_name.split(" ")[0]}</a></li>`);
 
 
-          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
+          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <a href="/partner_projects.html?id=${project.partner.id}"><img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"></a> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
 
           projects_div.append(partner_header);
         }
@@ -277,7 +278,7 @@
         partner_div.append(project_element);
       });
 
-      nav_ul.append('<li><a href="#clients">Parceiros</a></li>');
+      // nav_ul.append('<li><a href="#clients">Parceiros</a></li>');
 
       setupNav();
       setupMain();
