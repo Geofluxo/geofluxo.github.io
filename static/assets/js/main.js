@@ -5,7 +5,7 @@
 * License: https://bootstrapmade.com/license/
 */
 
-function setupMain(){  
+function setupMain(){
   (function($) {
     "use strict";
 
@@ -77,6 +77,7 @@ function setupMain(){
             $('body').removeClass('mobile-nav-active');
             $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
             $('.mobile-nav-overly').fadeOut();
+            $('.mobile-nav-close').fadeOut();
           }
           return false;
         }

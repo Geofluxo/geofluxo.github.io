@@ -920,7 +920,7 @@
 
       portfolio_items.forEach(function(portfolio_item){
 
-        var portfolio_item_element = `<div class="col-lg-4 col-md-6 portfolio-item filter-area-${(portfolio_item.area||'outros')}"> <a href="${portfolio_item.url}"> <div class="portfolio-wrap"> <img src="${portfolio_item.image}" class="img-fluid" alt=""> <div class="portfolio-info"> <h4>${portfolio_item.title}</h4> <p>${portfolio_item.subtitle}</p> <a href="${portfolio_item.url}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a> </div> </div> </a> </div>`;
+        var portfolio_item_element = `<div class="col-lg-4 col-md-6 portfolio-item filter-area-${(portfolio_item.area||'outros')}"> <a target="_blank" rel="noopener noreferrer" href="${portfolio_item.url}"> <div class="portfolio-wrap"> <img src="${portfolio_item.image}" class="img-fluid" alt=""> <div class="portfolio-info"> <h4>${portfolio_item.title}</h4> <p>${portfolio_item.subtitle}</p> <a target="_blank" rel="noopener noreferrer" href="${portfolio_item.url}" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a> </div> </div> </a> </div>`;
 
         portfolio_items_div.append(portfolio_item_element);
       });
