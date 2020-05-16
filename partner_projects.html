@@ -27,7 +27,6 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -85,8 +84,8 @@
       
 <div class="d-flex pb-lg-5">
   <div class="w-100">
-    <h2 class="d-none d-lg-block text-light my-4 mx-0 display-1 font-rajdhani partner-name text-center">
-    </h2>
+    <h2 class="partner-name d-none d-lg-block text-center text-light mt-5 mb-4 display-4 font-rajdhani"> </h2>
+    <div class="d-none d-lg-flex justify-content-center partner-img"> </div>
     <h3 class="partner-name d-lg-none text-center text-light mb-5 font-rajdhani"> </h3>
   </div>
 </div>
@@ -272,9 +271,8 @@
     success: function(projects){
       var projects_div = $("#projects-div");
 
-      projects.sort((a, b) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
+      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
 
-      projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       projects.forEach(function(project){
 
@@ -313,8 +311,6 @@ setupMain();
 
 
   <script type="text/javascript">
-  var base_url = "https://grupogeofluxo.pythonanywhere.com";
-
   // SOCIAL NETWORKS
   $.ajax({
 

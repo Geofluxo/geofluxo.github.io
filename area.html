@@ -27,7 +27,6 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -345,10 +344,9 @@
       area_publications.forEach(function(publication){
 
         var publication_year = publication.publication_date.split("-")[0];
-        var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
 
 
-        var publication_element = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year} </span> <span class="ml-3"> <b class="font-rajdhani text-dark">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+        var publication_element = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year} </span> <span class="ml-3"> <b class="font-rajdhani text-dark">${publication.title}</b></span> </div> <a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download"></i></a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> <a href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a> </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
 
         publications_ul.append(publication_element);
 
@@ -381,9 +379,7 @@
     url: base_url.concat("/area-projects/").concat(area_id),
     success: function(area_projects){
 
-      area_projects.sort((b, a) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
-
-      area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
+      area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) + (b.final_date==null?10000:parseInt(b.final_date)) - parseInt(a.initial_date.split("-")[0]) - (a.final_date==null?10000:parseInt(a.final_date)));
 
       var projects_div = $("#projects-div")
       area_projects.forEach(function(project){
@@ -420,6 +416,8 @@
 
         users_div.prepend(user_item);
       });
+
+      $("#portfolio-items").css("height","auto");
   }});
 
   // AREAS
@@ -456,8 +454,6 @@
 
 
   <script type="text/javascript">
-  var base_url = "https://grupogeofluxo.pythonanywhere.com";
-
   // SOCIAL NETWORKS
   $.ajax({
 

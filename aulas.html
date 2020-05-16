@@ -27,7 +27,6 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -267,9 +266,8 @@
         course.lectures.forEach(function(lecture){
 
           var publication_year = lecture.publication_date.split("-")[0];
-          var lecture_download = lecture.url ? `<a target="_blank" rel="noopener noreferrer" href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
 
-          var course_li_html = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${lecture.title}</b></span> </div>${lecture_download}</div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span><span class="font-rajdhani mx-2"><b>${lecture.title}</b></span></div>${lecture_download}</div></div></li>`;
+          var course_li_html = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${lecture.title}</b></span> </div><a target="_blank" rel="noopener noreferrer" href="${lecture.url}"> <i class="fa fa-download"></i> </a> </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span><span class="font-rajdhani mx-2"><b>${lecture.title}</b></span></div><a href="${lecture.url}"> <i class="fa fa-download mx-2"></i> </a> </div></div></li>`;
 
           course_ul.append(course_li_html);
         });
@@ -311,8 +309,6 @@
 
 
   <script type="text/javascript">
-  var base_url = "https://grupogeofluxo.pythonanywhere.com";
-
   // SOCIAL NETWORKS
   $.ajax({
 
