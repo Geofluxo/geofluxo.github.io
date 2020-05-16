@@ -11,11 +11,13 @@ function setupNav(){
     $('body').append($mobile_nav);
     $('body').prepend('<button type="button" class="mobile-nav-toggle d-lg-none"><i class="fa fa-bars"></i></button>');
     $('body').append('<div class="mobile-nav-overly"></div>');
+    $('body').append('<button class="mobile-nav-close btn btn-outline-light">×</button>');
 
     $(document).on('click', '.mobile-nav-toggle', function(e) {
       $('body').toggleClass('mobile-nav-active');
       $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
       $('.mobile-nav-overly').toggle();
+      $('.mobile-nav-close').toggle();
     });
 
     $(document).on('click', '.mobile-nav .drop-down > a', function(e) {
@@ -31,6 +33,7 @@ function setupNav(){
           $('body').removeClass('mobile-nav-active');
           $('.mobile-nav-toggle i').toggleClass('fa-times fa-bars');
           $('.mobile-nav-overly').fadeOut();
+          $('.mobile-nav-close').fadeOut();
         }
       }
     });
