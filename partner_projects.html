@@ -72,6 +72,7 @@
 <nav class="main-nav float-right d-none d-lg-block font-rajdhani">
   <ul>
     <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#publicacoes">Publicações</a></li>
     <li><a href="#clients">Parceiros</a></li>
   </ul>
 </nav>
@@ -121,6 +122,27 @@
 
       <div id="projects-div" class="d-flex flex-column">
         <!-- JSON projects  -->
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<section id="publicacoes" style="min-height:100vh;">
+
+  <div class="container py-4">
+    <div class="mb-0 pb-5">
+
+      <header class="section-header my-3">
+        <h3>Publicações</h3>
+        <p class="partner-name pb-3 pb-lg-5">Publicações realizadas em parceria com </p>
+      </header>
+
+      <div id="publications-div">
+        <ul id="publications-ul" class="list-group">
+          <!-- JSON projects  -->
+        </ul>
       </div>
 
     </div>
@@ -264,8 +286,33 @@
       $('.partner-name').each(function(){
           $(this).append(partner.name);
       });
-  }});
 
+      // PUBLICATIONS
+      var partner_publications = partner.partner_publications;
+      var publication_ul = $('#publications-ul');
+
+      if(partner_publications.length==0){
+        $('#publications-div').append('<div class="d-flex justify-content-center"><div class="d-inline-flex alert alert-primary text-center" role="alert"> <span class="my-0">Em breve teremos publicações com este parceiro</span></div></div>');
+        $('#publications-div').append('<div class="row justify-content-center"><div class="col-lg-6"><img src="/static/assets/img/book.svg" class="img-fluid w-100" alt=""></div></div>');
+      }
+
+
+      // sorting by date
+      partner_publications.sort(function(b, a){ return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
+
+      partner_publications.forEach(function(publication){
+
+        var publication_year = publication.publication_date.split("-")[0];
+        var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
+
+        var publication_li = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+
+        publication_ul.append(publication_li);
+
+    });
+
+
+  }});
 
 
   // PROJECTS
