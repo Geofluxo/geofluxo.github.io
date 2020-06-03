@@ -148,9 +148,18 @@
         <p style="color: white !important;" class="area-name">Leia e faça o download das publicações de </p>
       </header>
 
-      <ul id="publications-ul" class="list-group shadow">
-        <!-- JSON publications -->
+      <ul  class="list-group list-group-flush shadow-lg">
+        <div id="publications-ul" >
+          <!-- JSON publications -->
+        </div>
+        <div id="publications-ul-last" class="collapse">
+          <!-- JSON publications -->
+        </div>
       </ul>
+
+      <div class="d-flex justify-content-center mt-5">
+        <button class="btn btn-outline-light font-josefin" type="button" data-toggle="collapse" data-target="#publications-ul-last" id="publications-ul-last-btn" aria-expanded="false" aria-controls="collapse-publications">Mais publicações</button>
+      </div>
 
     </div>
   </div>
@@ -345,8 +354,10 @@
 
       area_publications.sort((a, b) => parseInt(b.publication_date.split("-")[0]) - parseInt(a.publication_date.split("-")[0]));
 
-      var publications_ul = $("#publications-ul")
-      area_publications.forEach(function(publication){
+      var publications_ul = $("#publications-ul");
+      var publications_ul_last = $("#publications-ul-last");
+
+      area_publications.forEach(function(publication, publication_index){
 
         var publication_year = publication.publication_date.split("-")[0];
         var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
@@ -354,7 +365,11 @@
 
         var publication_element = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"> <div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year} </span> <span class="ml-3"> <b class="font-rajdhani text-dark">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
 
-        publications_ul.append(publication_element);
+        if(publication_index<10){
+          publications_ul.append(publication_element);
+        } else {
+          publications_ul_last.append(publication_element);
+        }
 
       });
   }});
@@ -390,19 +405,36 @@
       area_projects.sort((b, a) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       var projects_div = $("#projects-div")
-      area_projects.forEach(function(project){
+      area_projects.forEach(function(project, project_index){
 
+        var project_publications = project.project_publications;
         var project_initial_year = project.initial_date.split("-")[0];
         var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
-        var project_item = `<div class="d-none d-lg-flex bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid p-2" style="max-height: 10em;"alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column d-lg-none bg-white justify-content-between align-items-center rounded shadow p-3 my-3 wow fadeInUp"> <div class="d-flex w-100 justify-content-between align-items-center font-rajdhani"> <img src="${project.partner.image}" style="height:3em;" class="img-fluid" alt="${project.partner.name}"> <div class="d-flex"><h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div></div> <hr class="my-2 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div>`;
+        var collapse_id = project_publications.length==0 ? `no-collapse-${project_index}`: `collapse-${project_index}`;
 
+        var project_item = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex justify-content-between w-100"><div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <img src="${project.partner.image}" alt="${project.partner.name}" style="max-height: 1.5em; object-fit: scale-down;"></div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></div></div>`;
 
         projects_div.prepend(project_item);
-      });
 
-      var portfolio_items_div = $("#portfolio-items-div");
-      $(portfolio_items_div).css("height","auto");
+
+        var project_ul = $(`#ul-project-${project_index}`);
+
+        project_publications.sort(function(b, a){ return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
+        project_publications.forEach(function(publication,index){
+
+          var publication_year = publication.publication_date.split("-")[0];
+          var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
+
+          var publication_li = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+
+          project_ul.append(publication_li);
+
+      });
+    });
+
+    var portfolio_items_div = $("#portfolio-items-div");
+    $(portfolio_items_div).css("height","auto");
   }});
 
 
@@ -458,6 +490,21 @@
 
   setupNav();
   setupMain();
+
+  $('#publications-ul-last-btn').click(function(){
+        $(this).text(function(i,old){
+
+          if(old=='Mais publicações'){
+
+            return 'Menos publicações'
+          }else{
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#publicacoes").offset().top
+            }, 200);
+            return 'Mais publicações'
+          }
+        });
+    });
 
 
 </script>

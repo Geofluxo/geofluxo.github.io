@@ -87,6 +87,7 @@ function setupMain(){
     // Navigation active state on scroll
     var nav_sections = $('section');
     var main_nav = $('.main-nav, .mobile-nav');
+    var alt_nav = $('.nav');
     var main_nav_height = $('#header').outerHeight();
 
     $(window).on('scroll', function() {
@@ -99,6 +100,14 @@ function setupMain(){
         if (cur_pos >= top && cur_pos <= bottom) {
           main_nav.find('li').removeClass('active');
           main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('active');
+
+          alt_nav.find('li').removeClass('border-primary');
+          alt_nav.find('li').addClass('border-light');
+
+
+          alt_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('border-primary');
+          alt_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').removeClass('border-light');
+
         }
       });
     });
