@@ -204,7 +204,7 @@
       <p class="area-name">Pessoas que trabalham na área de </p>
     </div>
 
-      <div id="users-div" class="row mb-5">
+      <div id="users-div" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
         <!-- JSON users -->
       </div>
 
@@ -439,7 +439,7 @@
 
 
   // AREA - USERS
-  var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestra', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
+  var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
 
   var titles_order = ['CD', 'DR', 'MS', 'BC', 'TC', 'GD'];
 
@@ -452,7 +452,7 @@
       var users_div = $("#users-div")
       area_users.forEach(function(member){
 
-        var user_item = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${member.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${member.first_name}</h4> <span>${titles_json[member.gender][member.title]}</span> <div class="social"> <a href="${member.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+        var user_item = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${member.image}')"><div class="member-info"> <div class="member-info-content"> <h4>${member.first_name}</h4> <span>${titles_json[member.gender][member.title]}</span> <div class="social"> <a href="${member.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
 
         users_div.prepend(user_item);
       });

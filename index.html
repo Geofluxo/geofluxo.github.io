@@ -462,16 +462,15 @@
     <!-- COORDENADOR -->
     <h2 class="text-primary text-center font-rajdhani">Coordenador</h2>
 
-    <div id="users_coordenadores" class="row mb-5 justify-content-center">
+    <div id="users_coordenadores" class="d-flex flex-wrap justify-content-around mb-5 justify-content-center">
         <!-- JSON users_coordenadores -->
     </div>
-
 
 
     <!-- DOUTORES -->
     <h2 class="text-primary text-center text-lg-left font-rajdhani">Doutores</h2>
 
-    <div id="users_doutores" class="row mb-5">
+    <div id="users_doutores" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
       <!-- JSON doutores -->
     </div>
 
@@ -480,7 +479,7 @@
 
     <h2 class="text-primary text-center text-lg-left font-rajdhani">Mestres</h2>
 
-    <div id="users_mestres" class="row mb-5">
+    <div id="users_mestres" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
         <!-- JSON mestres  -->
     </div>
 
@@ -489,7 +488,7 @@
 
     <h2 class="text-primary text-center text-lg-left font-rajdhani">Bacharéis</h2>
 
-    <div id="users_bachareis" class="row mb-5">
+    <div id="users_bachareis" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
       <!-- JSON users_bachareis -->
     </div>
 
@@ -498,7 +497,7 @@
 
     <h2 class="text-primary text-center text-lg-left font-rajdhani">Graduandos</h2>
 
-    <div id="users_graduandos" class="row mb-5">
+    <div id="users_graduandos" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
       <!-- JSON users_graduandos -->
     </div>
 
@@ -507,7 +506,7 @@
 
     <h2 class="text-primary text-center text-lg-left font-rajdhani">Técnicos</h2>
 
-    <div id="users_tecnicos" class="row mb-5">
+    <div id="users_tecnicos" class="d-flex flex-wrap justify-content-lg-between justify-content-around mb-5">
       <!-- JSON users_tecnicos -->
     </div>
 
@@ -849,7 +848,7 @@
 
     // titles json
 
-    var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestra', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
+    var titles_json = {'M':{'CD':'Coordenador', 'DR':'Doutor', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnico', 'GD':'Graduando'}, 'F':{'CD':'Coordenadora', 'DR':'Doutora', 'MS':'Mestre', 'BC':'Bacharel', 'TC':'Técnica', 'GD':'Graduanda'}};
 
   // USERS
   $.ajax({
@@ -862,7 +861,7 @@
     var users_coordenadores = users.filter(user => user.title=='CD');
 
     users_coordenadores.forEach(function(user){
-      var user_coordenador_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name} ${user.last_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_coordenador_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name} ${user.last_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_coordenadores_div.append(user_coordenador_element);
     });
 
@@ -871,7 +870,7 @@
     var users_doutores = users.filter(user => user.title=='DR');
 
     users_doutores.forEach(function(user){
-      var user_doutor_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_doutor_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_doutores_div.append(user_doutor_element);
     });
 
@@ -880,7 +879,7 @@
     var users_mestres = users.filter(user => user.title=='MS');
 
     users_mestres.forEach(function(user){
-      var user_mestre_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_mestre_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_mestre_div.append(user_mestre_element);
     });
 
@@ -890,7 +889,7 @@
     var users_bachareis = users.filter(user => user.title=='BC');
 
     users_bachareis.forEach(function(user){
-      var user_bacharel_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_bacharel_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_bachareis_div.append(user_bacharel_element);
     });
 
@@ -899,7 +898,7 @@
     var users_graduandos = users.filter(user => user.title=='GD');
 
     users_graduandos.forEach(function(user){
-      var user_graduando_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_graduando_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_graduandos_div.append(user_graduando_element);
     });
 
@@ -908,7 +907,7 @@
     var users_tecnicos = users.filter(user => user.title=='TC');
 
     users_tecnicos.forEach(function(user){
-      var user_tecnico_element = `<div class="col-lg-3 col-md-6 wow fadeInUp"> <div class="member"> <img src="${user.image}" class="img-fluid" alt=""> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
+      var user_tecnico_element = `<div class="wow fadeInUp"> <div class="member"> <div class="member-picture" style="background-image: url('${user.image}')"></div> <div class="member-info"> <div class="member-info-content"> <h4>${user.first_name}</h4> <span>${titles_json[user.gender][user.title]}</span> <div class="social"> <a href="${user.lattes_url}">Lattes</a> </div> </div> </div> </div> </div>`;
       users_tecnicos_div.append(user_tecnico_element);
     });
 

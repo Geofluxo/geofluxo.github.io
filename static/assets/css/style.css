@@ -37,6 +37,13 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0;
 }
 
+.member-picture {
+  background-position: center; 
+  background-size:cover; 
+  height: 15rem; 
+  width: 15rem;
+}
+
 .hoverable{
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
 
