@@ -406,6 +406,8 @@
 
       var projects_div = $("#projects-div")
       area_projects.forEach(function(project, project_index){
+        project.partners.forEach(function(partner, partner_index){
+
 
         var project_publications = project.project_publications;
         var project_initial_year = project.initial_date.split("-")[0];
@@ -413,7 +415,7 @@
 
         var collapse_id = project_publications.length==0 ? `no-collapse-${project_index}`: `collapse-${project_index}`;
 
-        var project_item = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex justify-content-between w-100"><div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <img src="${project.partner.image}" alt="${project.partner.name}" style="max-height: 1.5em; object-fit: scale-down;"></div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></div></div>`;
+        var project_item = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex justify-content-between w-100"><div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <img src="${partner.image}" alt="${partner.name}" style="max-height: 1.5em; object-fit: scale-down;"></div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></div></div>`;
 
         projects_div.prepend(project_item);
 
@@ -432,6 +434,8 @@
 
       });
     });
+  });
+
 
     var portfolio_items_div = $("#portfolio-items-div");
     $(portfolio_items_div).css("height","auto");

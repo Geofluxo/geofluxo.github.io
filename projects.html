@@ -249,6 +249,7 @@
 
 <script type="text/javascript">
   var base_url = "https://grupogeofluxo.pythonanywhere.com";
+
   var partner_id = getUrlParameter('id');
 
 
@@ -267,17 +268,18 @@
       projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
       projects.forEach(function(project, project_index){
+        project.partners.forEach(function(partner, partner_index){
 
         var project_initial_year = project.initial_date.split("-")[0];
         var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
-        if($(`#partner-${project.partner.id}-div`).length==0){
+        if($(`#partner-${partner.id}-div`).length==0){
 
-          nav_ul.append(`<li><a href="#partner-${project.partner.id}">${project.partner.short_name}</li>`);
+          nav_ul.append(`<li><a href="#partner-${partner.id}">${partner.short_name}</li>`);
 
-          nav_ul_alt.append(`<li class="nav-item py-1 px-3 text-center border-right border-light"><a href="#partner-${project.partner.id}" class=" scrollto"><img src="${project.partner.image}" style="max-height:2em; max-width:3em;" class="img-fluid" alt="${project.partner.short_name}"></a></li>`);
+          nav_ul_alt.append(`<li class="nav-item py-1 px-3 text-center border-right border-light"><a href="#partner-${partner.id}" class=" scrollto"><img src="${partner.image}" style="max-height:2em; max-width:3em;" class="img-fluid" alt="${partner.short_name}"></a></li>`);
 
-          var partner_header = `<section id="partner-${project.partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <a href="/partner_projects.html?id=${project.partner.id}"><img src="${project.partner.image}" class="img-fluid mt-5 pt-5" alt="${project.partner.name}"></a> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${project.partner.id}"> ${project.partner.name}</a></h2> <div id="partner-${project.partner.id}-div"></div></section>`;
+          var partner_header = `<section id="partner-${partner.id}"><div class="row w-100 m-0"> <div class="col-lg-3 text-center"> <a href="/partner_projects.html?id=${partner.id}"><img src="${partner.image}" class="img-fluid mt-5 pt-5" alt="${partner.name}"></a> </div> </div><h2 class="d-none d-lg-block text-primary display-5 font-rajdhani mt-3"><a href="/partner_projects.html?id=${partner.id}"> ${partner.name}</a></h2> <div id="partner-${partner.id}-div"></div></section>`;
 
           projects_div.append(partner_header);
         }
@@ -285,7 +287,7 @@
         var project_publications = project.project_publications;
         var collapse_id = project_publications.length==0 ? `no-collapse-${project_index}`: `collapse-${project_index}`;
 
-        var partner_div = $(`#partner-${project.partner.id}-div`);
+        var partner_div = $(`#partner-${partner.id}-div`);
 
         var project_element = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> </div> <div class="d-flex flex-column d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></ul></div></div>`;
 
@@ -303,6 +305,7 @@
 
           project_ul.append(publication_li);
 
+        });
       });
     });
 

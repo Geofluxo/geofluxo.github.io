@@ -19,7 +19,8 @@
   
   
 <title>GEOFLUXO - parceiros de projetos em geotecnia</title>
-<meta name="description" content="Parceiros do Grupo de Pesquisa Inovações e Tecnologias Aplicadas em Geotecnia Ambiental - Geofluxo">
+<meta name="description"
+  content="Parceiros do Grupo de Pesquisa Inovações e Tecnologias Aplicadas em Geotecnia Ambiental - Geofluxo">
 
 
   <meta name="keywords" content="geotecnia, solos, fluxo, engenharia civil, consultoria, pesquisa">
@@ -152,7 +153,7 @@
 
 
 <!-- ======= Clients Section ======= -->
-  
+
 
 <section  style="min-height: 100vh" id="clients" class="section-bg">
 
@@ -277,30 +278,31 @@
   $.ajax({
 
     url: base_url.concat("/partner/").concat(partner_id),
-    success: function(partner){
+    success: function (partner) {
 
-      $(".partner-img").each(function(){
+      $(".partner-img").each(function () {
         $(this).append(`<img src="${partner.image}" style="max-height: 10em;" class="img-fluid mb-3" alt="${partner.name}"> `);
       });
 
-      $('.partner-name').each(function(){
-          $(this).append(partner.name);
+      $('.partner-name').each(function () {
+        $(this).append(partner.name);
       });
 
       // PUBLICATIONS
       var partner_publications = partner.partner_publications;
       var publication_ul = $('#publications-ul');
 
-      if(partner_publications.length==0){
-        $('#publications-div').append('<div class="d-flex justify-content-center"><div class="d-inline-flex alert alert-primary text-center" role="alert"> <span class="my-0">Em breve teremos publicações com este parceiro</span></div></div>');
+      if (partner_publications.length == 0) {
         $('#publications-div').append('<div class="row justify-content-center"><div class="col-lg-6"><img src="/static/assets/img/book.svg" class="img-fluid w-100" alt=""></div></div>');
+        $('#publications-div').append('<div class="d-flex justify-content-center"><div class="d-inline-flex alert alert-primary text-center" role="alert"> <span class="my-0">Em breve teremos publicações com este parceiro</span></div></div>');
+
       }
 
 
       // sorting by date
-      partner_publications.sort(function(b, a){ return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
+      partner_publications.sort(function (b, a) { return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
 
-      partner_publications.forEach(function(publication){
+      partner_publications.forEach(function (publication) {
 
         var publication_year = publication.publication_date.split("-")[0];
         var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
@@ -309,71 +311,82 @@
 
         publication_ul.append(publication_li);
 
-    });
+      });
 
-  }});
+    }
+  });
 
 
   // PROJECTS
   $.ajax({
 
     url: base_url.concat("/partner-projects/").concat(partner_id),
-    success: function(projects){
+    success: function (projects) {
       var projects_div = $("#projects-div");
 
-      projects.sort((a, b) => (b.final_date==null?10000:parseInt(b.final_date)) - (a.final_date==null?10000:parseInt(a.final_date)));
+      projects.sort((a, b) => (b.final_date == null ? 10000 : parseInt(b.final_date)) - (a.final_date == null ? 10000 : parseInt(a.final_date)));
 
       projects.sort((a, b) => parseInt(b.initial_date.split("-")[0]) - parseInt(a.initial_date.split("-")[0]));
 
-      projects.forEach(function(project, project_index){
-
-        var project_initial_year = project.initial_date.split("-")[0];
-        var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
-
-        var project_publications = project.project_publications;
-        var collapse_id = project_publications.length==0 ? `no-collapse-${project_index}`: `collapse-${project_index}`;
-
-        var project_element = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${project.partner.image}" class="img-fluid" alt="${project.partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></div></div>`;
+      projects.forEach(function (project, project_index) {
+        project.partners.forEach(function (partner, partner_index) {
 
 
-        projects_div.append(project_element);
-        var project_ul = $(`#ul-project-${project_index}`);
+          var project_initial_year = project.initial_date.split("-")[0];
+          var project_final_year = project.final_date ? project.final_date.split("-")[0] : '<span class="text-primary">Atual</span>';
 
-        project_publications.sort(function(b, a){ return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
+          var project_publications = project.project_publications;
+          var collapse_id = project_publications.length == 0 ? `no-collapse-${project_index}` : `collapse-${project_index}`;
 
-        project_publications.forEach(function(publication,index){
+          var project_element = `<div class="project-element bg-white rounded hoverable p-3 my-3 wow fadeInUp" data-toggle="collapse" href="#${collapse_id}" role="button" aria-expanded="false" aria-controls="collapse-${project_index}"><div class="d-none d-lg-flex justify-content-between align-items-center"> <div class="d-flex align-items-center w-75 font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> <h5 class="mx-5 ml-3 text-left my-1 font-rajdhani">${project.name}</h5> </div> <div class="client-logo w-25"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </div> </div> <div class="d-flex flex-column  d-lg-none bg-white justify-content-between align-items-center wow fadeInUp"> <div class="d-flex align-items-center font-rajdhani"> <h5 class="ml-3 text-secondary my-1">${project_initial_year} </h5> <h5 class="text-secondary mx-2 my-1"> - </h5> <h5 class="text-secondary my-1"> ${project_final_year}</h5> </div> <hr class="my-0 w-100"> <h5 class="text-left my-1 font-rajdhani">${project.name}</h5> </div><div class="collapse" id="collapse-${project_index}"><ul class="list-group list-group-flush p-0" id="ul-project-${project_index}"><span style="height:1em;" class="w-100"></span></ul></div></div>`;
 
-          var publication_year = publication.publication_date.split("-")[0];
-          var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
 
-          var publication_li = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+          projects_div.append(project_element);
+          var project_ul = $(`#ul-project-${project_index}`);
 
-          project_ul.append(publication_li);
+          project_publications.sort(function (b, a) { return parseInt(a.publication_date.split('-')[0]) - parseInt(b.publication_date.split('-')[0]); });
 
+          project_publications.forEach(function (publication, index) {
+
+            var publication_year = publication.publication_date.split("-")[0];
+            var publication_download = publication.url ? `<a target="_blank" rel="noopener noreferrer" href="${publication.url}"> <i class="fa fa-download mx-2"></i> </a>` : ``;
+
+            var publication_li = `<li class="list-group-item p-2"> <div class="d-none d-lg-flex justify-content-between"><div class="d-flex"> <span class="text-secondary font-rajdhani">${publication_year}</span> <span class="ml-3"> <b class="text-dark font-rajdhani">${publication.title}</b></span> </div> ${publication_download} </div> <div class="d-flex d-lg-none flex-column"> <div class="d-flex align-items-center justify-content-between"> <span class="text-secondary font-rajdhani">${publication_year}</span> ${publication_download} </div><span class="font-rajdhani"><b>${publication.title}</b></span> </div> </li>`;
+
+            project_ul.append(publication_li);
+
+          });
+        });
       });
-    });
-  }});
 
-
-
-// ALL PARTNERS
-$.ajax({
-
-  url: base_url.concat("/partners"),
-  success: function(partners){
-  var partners_div = $("#partners");
-
-  partners.forEach(function(partner){
-
-    var partner_element = `<div class="col-lg-3 col-md-4 col-xs-6"> <div class="client-logo"> <a href="/partner_projects.html?id=${partner.id}"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </a></div> </div>`;
-
-    partners_div.append(partner_element);
+      if (projects.length == 0) {
+        projects_div.append('<div class="row justify-content-center"><div class="col-lg-6"><img src="/static/assets/img/working.svg" class="img-fluid w-100" alt=""></div></div>');
+        projects_div.append('<div class="d-flex justify-content-center"><div class="d-inline-flex alert alert-primary text-center" role="alert"> <span class="my-0">Em breve descreveremos os projetos com este parceiro</span></div></div>');
+      }
+    }
   });
 
-}});
 
-setupNav();
-setupMain();
+
+  // ALL PARTNERS
+  $.ajax({
+
+    url: base_url.concat("/partners"),
+    success: function (partners) {
+      var partners_div = $("#partners");
+
+      partners.forEach(function (partner) {
+
+        var partner_element = `<div class="col-lg-3 col-md-4 col-xs-6"> <div class="client-logo"> <a href="/partner_projects.html?id=${partner.id}"> <img src="${partner.image}" class="img-fluid" alt="${partner.name}"> </a></div> </div>`;
+
+        partners_div.append(partner_element);
+      });
+
+    }
+  });
+
+  setupNav();
+  setupMain();
 
 </script>
 
